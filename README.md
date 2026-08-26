@@ -1,4 +1,4 @@
-# Single Primitives
+# Single
 
 ![Development Status](https://img.shields.io/badge/status-active--development-blue.svg)
 
@@ -11,7 +11,7 @@ A single-element container — `Single<Element>`, storage that holds exactly one
 `Single<Element>` *stores* its element and lends access to it. Unlike a single-element *iterator* — which owns the element and yields it once, consuming it — a container keeps its element for repeated, multipass access. `Element` is unconstrained (`~Copyable & ~Escapable`), so `Single` inherits its element's copyability and escapability: `Single<Int>` is an ordinary copyable value, `Single<MoveOnly>` is itself move-only, and `Single` over a non-escaping element is itself `~Escapable`.
 
 ```swift
-import Single_Primitives
+import Single
 
 // A copyable element: Single<Int> is itself copyable.
 let one = Single(42)
@@ -24,7 +24,7 @@ print(copy.element)       // 42
 A move-only element is read by *borrowing* the container, so it can be observed more than once without being consumed:
 
 ```swift
-import Single_Primitives
+import Single
 
 struct Token: ~Copyable {
     let id: Int
@@ -43,7 +43,7 @@ print(single.element.id)  // 7 — multipass via borrow, never moved out
 
 ```swift
 dependencies: [
-    .package(url: "https://github.com/swift-primitives/swift-single-primitives.git", branch: "main")
+    .package(url: "https://github.com/swift-molecules/swift-single.git", branch: "main")
 ]
 ```
 
@@ -51,7 +51,7 @@ dependencies: [
 .target(
     name: "App",
     dependencies: [
-        .product(name: "Single Primitives", package: "swift-single-primitives"),
+        .product(name: "Single", package: "swift-single"),
     ]
 )
 ```
@@ -66,7 +66,7 @@ One library product, no dependencies.
 
 | Product | Target | Purpose |
 |---------|--------|---------|
-| `Single Primitives` | `Sources/Single Primitives/` | `Single<Element>`: a container holding exactly one element, with conditional `Copyable` / `Escapable` conformances that mirror the stored element's capabilities. |
+| `Single` | `Sources/Single/` | `Single<Element>`: a container holding exactly one element, with conditional `Copyable` / `Escapable` conformances that mirror the stored element's capabilities. |
 
 Foundation-free.
 

@@ -1,4 +1,4 @@
-import Single_Primitives
+import Single
 import Testing
 
 @Suite
