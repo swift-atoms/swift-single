@@ -1,27 +1,43 @@
-# Single
+# swift-single
 
-![Development Status](https://img.shields.io/badge/status-active--development-blue.svg)
+A one-element container that preserves the ownership and lifetime capabilities of its element.
 
-A single-element container — `Single<Element>`, storage that holds exactly one element and lends repeated access to it, including for move-only and non-escaping elements.
+`Single<Element>` stores exactly one value and lends repeated access to it. `Element` may be copyable, move-only, escaping, or non-escaping; the container conditionally inherits the capabilities the element provides.
 
----
+## Installation
 
-## Quick Start
+Add the package from its canonical home:
 
-`Single<Element>` *stores* its element and lends access to it. Unlike a single-element *iterator* — which owns the element and yields it once, consuming it — a container keeps its element for repeated, multipass access. `Element` is unconstrained (`~Copyable & ~Escapable`), so `Single` inherits its element's copyability and escapability: `Single<Int>` is an ordinary copyable value, `Single<MoveOnly>` is itself move-only, and `Single` over a non-escaping element is itself `~Escapable`.
+```swift
+dependencies: [
+    .package(
+        url: "https://github.com/swift-atoms/swift-single.git",
+        branch: "main"
+    )
+]
+```
+
+Then depend on the narrowest product your target needs:
+
+```swift
+.product(name: "Single", package: "swift-single")
+```
+
+## Core
+
+The `Single` product is Foundation-free and has no package dependencies:
 
 ```swift
 import Single
 
-// A copyable element: Single<Int> is itself copyable.
 let one = Single(42)
-print(one.element)        // 42
+print(one.element)
 
-let copy = one            // compiles because Single<Int>: Copyable
-print(copy.element)       // 42
+let copy = one
+print(copy.element)
 ```
 
-A move-only element is read by *borrowing* the container, so it can be observed more than once without being consumed:
+When the element is move-only, the container is move-only too, while borrowed property access remains repeatable:
 
 ```swift
 import Single
@@ -30,65 +46,19 @@ struct Token: ~Copyable {
     let id: Int
 }
 
-let single = Single(Token(id: 7))
-print(single.element.id)  // 7
-print(single.element.id)  // 7 — multipass via borrow, never moved out
+let token = Single(Token(id: 7))
+print(token.element.id)
+print(token.element.id)
 ```
 
-`Single` is the shared one-element anchor onto which each domain attaches its conformance — the single-element sequence and collection (cf. the standard library's `CollectionOfOne`) — re-narrowing `Element` to whatever that domain requires.
+## Products
 
----
+- `Single` — the one-element container and its conditional ownership/lifetime conformances.
+- `Single Standard Library Integration` — the standard-library integration and compatibility re-export seam.
+- `Single Apple Foundation Integration` — the Apple Foundation integration seam; this is the only product that imports Foundation.
 
-## Installation
-
-```swift
-dependencies: [
-    .package(url: "https://github.com/swift-molecules/swift-single.git", branch: "main")
-]
-```
-
-```swift
-.target(
-    name: "App",
-    dependencies: [
-        .product(name: "Single", package: "swift-single"),
-    ]
-)
-```
-
-Requires Swift 6.3.3 and macOS 26 / iOS 26 / tvOS 26 / watchOS 26 / visionOS 26 (or the matching Linux / Windows toolchain).
-
----
-
-## Architecture
-
-One library product, no dependencies.
-
-| Product | Target | Purpose |
-|---------|--------|---------|
-| `Single` | `Sources/Single/` | `Single<Element>`: a container holding exactly one element, with conditional `Copyable` / `Escapable` conformances that mirror the stored element's capabilities. |
-
-Foundation-free.
-
----
-
-## Platform Support
-
-| Platform | Status |
-|----------|--------|
-| macOS 26 | Full support |
-| Linux | Full support |
-| Windows | Full support |
-| iOS / tvOS / watchOS / visionOS | Supported |
-
----
-
-## Community
-
-<!-- BEGIN: discussion -->
-<!-- Discussion thread created at publication. -->
-<!-- END: discussion -->
+The core and standard-library integration are Foundation-free, dependency-free, and suitable for Embedded-oriented consumers.
 
 ## License
 
-Apache 2.0. See [LICENSE.md](LICENSE.md).
+See [LICENSE.md](LICENSE.md).
