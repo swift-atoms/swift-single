@@ -25,7 +25,7 @@ let package = Package(
         ),
         .testTarget(
             name: "Single Tests",
-            dependencies: ["Single"]
+            dependencies: [.target(name: "Single")]
         ),
     ],
     swiftLanguageModes: [.v6]

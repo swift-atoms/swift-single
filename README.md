@@ -43,7 +43,7 @@ print(single.element.id)  // 7 — multipass via borrow, never moved out
 
 ```swift
 dependencies: [
-    .package(url: "https://github.com/swift-molecules/swift-single.git", branch: "main")
+    .package(url: "https://github.com/swift-atoms/swift-single.git", branch: "main")
 ]
 ```
 
