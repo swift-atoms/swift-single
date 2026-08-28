@@ -15,32 +15,13 @@ let package = Package(
         .library(
             name: "Single",
             targets: ["Single"]
-        ),
-        .library(
-            name: "Single Standard Library Integration",
-            targets: ["Single Standard Library Integration"]
-        ),
-        .library(
-            name: "Single Apple Foundation Integration",
-            targets: ["Single Apple Foundation Integration"]
-        ),
+        )
     ],
     dependencies: [],
     targets: [
         .target(
             name: "Single",
             dependencies: []
-        ),
-        .target(
-            name: "Single Standard Library Integration",
-            dependencies: ["Single"]
-        ),
-        .target(
-            name: "Single Apple Foundation Integration",
-            dependencies: [
-                "Single",
-                "Single Standard Library Integration",
-            ]
         ),
         .testTarget(
             name: "Single Tests",
