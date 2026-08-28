@@ -3,7 +3,7 @@
 import PackageDescription
 
 let package = Package(
-    name: "swift-single-primitives",
+    name: "swift-single",
     platforms: [
         .macOS(.v27),
         .iOS(.v27),
@@ -13,19 +13,19 @@ let package = Package(
     ],
     products: [
         .library(
-            name: "Single Primitives",
-            targets: ["Single Primitives"]
+            name: "Single",
+            targets: ["Single"]
         )
     ],
     dependencies: [],
     targets: [
         .target(
-            name: "Single Primitives",
+            name: "Single",
             dependencies: []
         ),
         .testTarget(
-            name: "Single Primitives Tests",
-            dependencies: ["Single Primitives"]
+            name: "Single Tests",
+            dependencies: [.target(name: "Single")]
         ),
     ],
     swiftLanguageModes: [.v6]
