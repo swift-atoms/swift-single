@@ -9,6 +9,6 @@ public struct Single<Element: ~Copyable & ~Escapable>: ~Copyable, ~Escapable {
     }
 }
 
-extension Single: Copyable where Element: Copyable & ~Escapable {}
+extension Single: Swift.Copyable where Element: Swift.Copyable & ~Escapable {}
 
-extension Single: Escapable where Element: Escapable & ~Copyable {}
+extension Single: Swift.Escapable where Element: Swift.Escapable & ~Copyable {}

@@ -13,8 +13,8 @@ let package = Package(
     ],
     products: [
         .library(name: "Single", targets: ["Single"]),
-        .library(name: "Single Standard Library Integration", targets: ["Single Standard Library Integration"]),
-        .library(name: "Single Foundation Library Integration", targets: ["Single Foundation Library Integration"]),
+
+        .library(name: "Single Foundation Integration", targets: ["Single Foundation Integration"]),
         .library(name: "Single Test Support", targets: ["Single Test Support"]),
     ],
     dependencies: [],
@@ -25,20 +25,13 @@ let package = Package(
             ],
             path: "Sources/Single"
         ),
+        
         .target(
-            name: "Single Standard Library Integration",
+            name: "Single Foundation Integration",
             dependencies: [
                 .target(name: "Single"),
             ],
-            path: "Sources/Single Standard Library Integration"
-        ),
-        .target(
-            name: "Single Foundation Library Integration",
-            dependencies: [
-                .target(name: "Single"),
-                .target(name: "Single Standard Library Integration"),
-            ],
-            path: "Sources/Single Foundation Library Integration"
+            path: "Sources/Single Foundation Integration"
         ),
         .target(
             name: "Single Test Support",
@@ -52,8 +45,7 @@ let package = Package(
             dependencies: [
                 .target(name: "Single"),
                 .target(name: "Single Test Support"),
-                .target(name: "Single Standard Library Integration"),
-                .target(name: "Single Foundation Library Integration"),
+                .target(name: "Single Foundation Integration"),
             ],
             path: "Tests/Single Tests"
         ),
