@@ -21,22 +21,21 @@ let package = Package(
     targets: [
         .target(
             name: "Single",
-            dependencies: [
-            ],
+            dependencies: [],
             path: "Sources/Single"
         ),
-        
+
         .target(
             name: "Single Foundation Integration",
             dependencies: [
-                .target(name: "Single"),
+                .target(name: "Single")
             ],
             path: "Sources/Single Foundation Integration"
         ),
         .target(
             name: "Single Test Support",
             dependencies: [
-                .target(name: "Single"),
+                .target(name: "Single")
             ],
             path: "Tests/Support"
         ),
@@ -53,14 +52,15 @@ let package = Package(
 )
 
 for target in package.targets where ![.system, .binary, .plugin, .macro].contains(target.type) {
-    target.swiftSettings = (target.swiftSettings ?? []) + [
-        .strictMemorySafety(),
-        .enableUpcomingFeature("ExistentialAny"),
-        .enableUpcomingFeature("InternalImportsByDefault"),
-        .enableUpcomingFeature("MemberImportVisibility"),
-        .enableUpcomingFeature("NonisolatedNonsendingByDefault"),
-        .enableUpcomingFeature("InferIsolatedConformances"),
-        .enableExperimentalFeature("Lifetimes"),
-        .treatAllWarnings(as: .error),
-    ]
+    target.swiftSettings =
+        (target.swiftSettings ?? []) + [
+            .strictMemorySafety(),
+            .enableUpcomingFeature("ExistentialAny"),
+            .enableUpcomingFeature("InternalImportsByDefault"),
+            .enableUpcomingFeature("MemberImportVisibility"),
+            .enableUpcomingFeature("NonisolatedNonsendingByDefault"),
+            .enableUpcomingFeature("InferIsolatedConformances"),
+            .enableExperimentalFeature("Lifetimes"),
+            .treatAllWarnings(as: .error),
+        ]
 }

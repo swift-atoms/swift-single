@@ -1,2 +1,2 @@
-@_exported public import Single
 import Foundation
+@_exported public import Single
